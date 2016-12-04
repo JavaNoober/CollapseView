@@ -140,7 +140,6 @@ public class CollapseLayout extends FrameLayout {
 		{
 			ViewCompat.postInvalidateOnAnimation(this);
 			postInvalidate();
-//			invalidate();
 		}
 	}
 
@@ -168,9 +167,9 @@ public class CollapseLayout extends FrameLayout {
 		int w = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 		int h = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
 		llContent.measure(w, h);
-		int height = llContent.getMeasuredHeight();
+		int contentHeight = Math.max(llContent.getMeasuredHeight() , height);
 		int contentWidthSpec = MeasureSpec.makeMeasureSpec(sizeWidth,MeasureSpec.EXACTLY);
-		int contentHeightSpec = MeasureSpec.makeMeasureSpec(height,MeasureSpec.EXACTLY);
+		int contentHeightSpec = MeasureSpec.makeMeasureSpec(contentHeight,MeasureSpec.EXACTLY);
 		llContent.measure(contentWidthSpec,contentHeightSpec);
 
 		int picShowWidthSpec = MeasureSpec.makeMeasureSpec(sizeWidth,MeasureSpec.EXACTLY);
@@ -208,11 +207,6 @@ public class CollapseLayout extends FrameLayout {
 	private void expendPicView() {
 		hasExpand = true;
 		viewDragHelper.smoothSlideViewTo(llContent,0,height);
-//		if(releasedChild == llContent){
-//			viewDragHelper.settleCapturedViewAt(0,height);
-//		}else if(releasedChild == rlShow){
-//			viewDragHelper.settleCapturedViewAt(0, 0);
-//		}
 		tabLayout.setVisibility(VISIBLE);
 		postInvalidate();
 	}
