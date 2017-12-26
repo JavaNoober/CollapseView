@@ -186,7 +186,8 @@ public class CollapseLayout extends FrameLayout {
 			rlShow.layout(0 , 0 , getMeasuredWidth() ,height);
 			llContent.layout(0, height,getMeasuredWidth(), llContent.getMeasuredHeight() + height);
 		}else {
-			rlShow.layout(0, - initPicHeight , getMeasuredWidth(), height - initPicHeight);
+			rlShow.layout(0, - (screenHeight - initPicHeight) / 2, getMeasuredWidth(), screenHeight -
+						(screenHeight -initPicHeight) / 2);
 			llContent.layout(0, initPicHeight,getMeasuredWidth(), llContent.getMeasuredHeight() + initPicHeight);
 		}
 	}
