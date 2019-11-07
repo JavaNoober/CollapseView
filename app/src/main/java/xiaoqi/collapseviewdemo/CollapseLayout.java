@@ -1,5 +1,6 @@
 package xiaoqi.collapseviewdemo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -7,6 +8,7 @@ import android.graphics.Matrix;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -40,9 +42,14 @@ public class CollapseLayout extends FrameLayout {
 	int initPicHeight ;
 	Context context;
 
+	int screenHeight;
+
 	public CollapseLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		this.context = context;
+		DisplayMetrics outMetrics = new DisplayMetrics();
+		((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(outMetrics);
+		screenHeight = outMetrics.heightPixels;
 		width = getResources().getDisplayMetrics().widthPixels;
 		height = getResources().getDisplayMetrics().heightPixels;
 		Resources resources = context.getResources();
@@ -156,27 +163,36 @@ public class CollapseLayout extends FrameLayout {
 		viewPager.setLayoutParams(params);
 	}
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		Log.i(TAG,"onMeasure");
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-		int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
-		int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+//	@Override
+//	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+//		Log.i(TAG,"onMeasure");
+//		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+//		int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+//		int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+//
+//		int paddingLeft = getPaddingLeft();
+//		int paddingRight = getPaddingRight();
+//		int paddingTop = getPaddingTop();
+//		int paddingBottom = getPaddingBottom();
+//
+//		int w = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+//		int h = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
+//		llContent.measure(w, h);
+//		int contentHeight = Math.max(llContent.getMeasuredHeight() , height);
+//		int contentWidthSpec = MeasureSpec.makeMeasureSpec(sizeWidth,MeasureSpec.EXACTLY);
+//		int contentHeightSpec = MeasureSpec.makeMeasureSpec(contentHeight,MeasureSpec.EXACTLY);
+//
+//		llContent.measure(contentWidthSpec,contentHeightSpec);
+//
+//		int picShowWidthSpec = MeasureSpec.makeMeasureSpec(sizeWidth,MeasureSpec.EXACTLY);
+//		int picShowHeightSpec = MeasureSpec.makeMeasureSpec(sizeHeight,MeasureSpec.EXACTLY);
+//		rlShow.measure(getChildMeasureSpec(picShowWidthSpec, paddingLeft + paddingRight, rlShow.getLayoutParams().width),
+//				getChildMeasureSpec(picShowHeightSpec, paddingTop + paddingBottom, rlShow.getLayoutParams().height)
+//		);
+//
+//		measureChildren(widthMeasureSpec, heightMeasureSpec);
 //		setMeasuredDimension(sizeWidth, sizeHeight);
-
-		int w = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-		int h = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED);
-		llContent.measure(w, h);
-		int contentHeight = Math.max(llContent.getMeasuredHeight() , height);
-		int contentWidthSpec = MeasureSpec.makeMeasureSpec(sizeWidth,MeasureSpec.EXACTLY);
-		int contentHeightSpec = MeasureSpec.makeMeasureSpec(contentHeight,MeasureSpec.EXACTLY);
-		llContent.measure(contentWidthSpec,contentHeightSpec);
-
-		int picShowWidthSpec = MeasureSpec.makeMeasureSpec(sizeWidth,MeasureSpec.EXACTLY);
-		int picShowHeightSpec = MeasureSpec.makeMeasureSpec(sizeHeight,MeasureSpec.EXACTLY);
-		rlShow.measure(picShowWidthSpec,picShowHeightSpec);
-
-	}
+//	}
 
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
